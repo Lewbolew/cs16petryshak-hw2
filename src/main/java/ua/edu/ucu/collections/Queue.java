@@ -20,7 +20,7 @@ public class Queue {
         return removedElemet;
     }
 
-    public void enqueue (Object e) {
+    public void enqueue(Object e) {
         queue = queue.add(e);
         size += 1;
     }

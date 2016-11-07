@@ -2,7 +2,7 @@ package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
 
-public final class ImmutableLinkedList implements ImmutableList{
+public final class ImmutableLinkedList implements ImmutableList {
     private final Node header;
     private int size = 0;
 
@@ -35,7 +35,7 @@ public final class ImmutableLinkedList implements ImmutableList{
 
     private Node iterator(int index, Node node) {
         for (int i = 0; i < index - 1; i++) {
-            node = node.nextElement;
+            node = node.nextElement; // Here I change the node element because I need to do it, it`s not an error!
         }
         return node;
     }
@@ -46,8 +46,8 @@ public final class ImmutableLinkedList implements ImmutableList{
         return newImmutable;
     }
 
-    private void arrayAdder(Object[] c, Node newHead, int size) {
-        Node lastNode = iterator(size, newHead);
+    private void arrayAdder(Object[] c, Node newHead, int intp_size) {
+        Node lastNode = iterator(intp_size, newHead);
         for (int i = 0; i < c.length; i++) {
             Node newNode = new Node(c[i]);
             lastNode.nextElement = newNode;
@@ -58,7 +58,7 @@ public final class ImmutableLinkedList implements ImmutableList{
         String result = "";
         Node current = header;
         while (current != null) {
-            result += (current.data + " --> ");
+            result += current.data + " --> ";
             current = current.nextElement;
         }
         result += "null";
@@ -85,7 +85,7 @@ public final class ImmutableLinkedList implements ImmutableList{
             return NullElementAdd(e);
         } else if (index == size()) {
             return add(e);
-        } else if(index == 0) {
+        } else if (index == 0) {
             Node newNode = new Node(e, newHeader);
             ImmutableLinkedList newImmutable = new ImmutableLinkedList(newNode);
             newImmutable.size++;
@@ -129,7 +129,7 @@ public final class ImmutableLinkedList implements ImmutableList{
         Node indexNode = iterator(index + 1, newHead);
         Node lastList = indexNode.nextElement;
         arrayAdder(c, newHead, size() - index - 1);
-        indexNode = iterator(size() - (size() - index) + c.length + 1, newHead);
+        indexNode = iterator(size() - size() - index + c.length + 1, newHead);
         indexNode.nextElement = lastList;
         ImmutableLinkedList newImmutable = new ImmutableLinkedList(newHead);
         newImmutable.size = size + c.length;
@@ -152,7 +152,7 @@ public final class ImmutableLinkedList implements ImmutableList{
             newImmutable.size = size - 1;
             return newImmutable;
         } else if (index == size() - 1) {
-            Node beforeLast = iterator(index,newHeader);
+            Node beforeLast = iterator(index, newHeader);
             beforeLast.nextElement = null;
             ImmutableLinkedList newImmutable = new ImmutableLinkedList(newHeader);
             newImmutable.size = size - 1;

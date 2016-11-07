@@ -3,7 +3,7 @@ package ua.edu.ucu.collections.immutable;
 import java.util.ArrayList;
 
 public final class ImmutableArrayList implements ImmutableList{
-    final private ArrayList immutableArrayList;
+    private final ArrayList immutableArrayList;
     ImmutableArrayList() {
         immutableArrayList = new ArrayList();
     }
@@ -35,9 +35,7 @@ public final class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableArrayList add(int index, Object e) {
-        if (index > immutableArrayList.size()) {
-            throw new IndexOutOfBoundsException();
-        }
+        IndexExceptionThrower(index);
         ArrayList newArrayList = new ArrayList(immutableArrayList);
         newArrayList.add(index, e);
         return newObjectCreator(newArrayList);
@@ -54,9 +52,7 @@ public final class ImmutableArrayList implements ImmutableList{
 
     @Override
     public ImmutableArrayList addAll(int index, Object[] c) {
-        if (index > immutableArrayList.size()) {
-            throw new IndexOutOfBoundsException();
-        }
+        IndexExceptionThrower(index);
         ArrayList newArrayList = new ArrayList(immutableArrayList);
 
         for (int i = 0; i < c.length; i++) {
